@@ -24,7 +24,7 @@ const Search: React.FC<SearchProps> = React.memo((props) => {
             ? ''
             : `?orderBy="title"&equalTo="${enteredFilter}"`;
         sendRequest(
-          'https://react-hooks-update.firebaseio.com/ingredients.json' + query,
+          'https://react-hooks-e24a9-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json' + query,
           'GET'
         );
       }

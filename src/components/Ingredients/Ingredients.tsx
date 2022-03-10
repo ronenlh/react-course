@@ -59,13 +59,13 @@ const Ingredients = () => {
     }
   }, [data, reqExtra, reqIdentifer, isLoading, error]);
 
-  const filteredIngredientsHandler = useCallback(filteredIngredients => {
+  const filteredIngredientsHandler = useCallback((filteredIngredients: Ingredient[]) => {
     dispatch({ type: 'SET', ingredients: filteredIngredients });
   }, []);
 
-  const addIngredientHandler = useCallback(ingredient => {
+  const addIngredientHandler = useCallback((ingredient: Ingredient) => {
     sendRequest(
-      'https://react-hooks-update.firebaseio.com/ingredients.json',
+      'https://react-hooks-e24a9-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json',
       'POST',
       JSON.stringify(ingredient),
       ingredient,
@@ -73,10 +73,9 @@ const Ingredients = () => {
     );
   }, [sendRequest]);
 
-  const removeIngredientHandler = useCallback(
-    ingredientId => {
+  const removeIngredientHandler = useCallback((ingredientId: string) => {
       sendRequest(
-        `https://react-hooks-update.firebaseio.com/ingredients/${ingredientId}.json`,
+        `https://react-hooks-e24a9-default-rtdb.europe-west1.firebasedatabase.app/ingredients/${ingredientId}.json`,
         'DELETE',
         null,
         ingredientId,
