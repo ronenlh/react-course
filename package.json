@@ -1,49 +1,27 @@
 {
-  "name": "react-hooks",
-  "version": "0.1.0",
+  "name": "commerce",
+  "license": "MIT",
   "private": true,
-  "dependencies": {
-    "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.25",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-test-renderer": "^17.0.1",
-    "@types/uuid": "^8.3.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.2.2",
-    "react-scripts": "5.0.0",
-    "react-test-renderer": "^17.0.2",
-    "typescript": "^4.5.5",
-    "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
-  },
+  "workspaces": [
+    "site",
+    "packages/*"
+  ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build": "turbo run build --scope=next-commerce --include-dependencies --no-deps",
+    "dev": "turbo run dev",
+    "start": "turbo run start",
+    "types": "turbo run types",
+    "prettier-fix": "prettier --write ."
   },
   "devDependencies": {
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6"
-  }
+    "husky": "^7.0.4",
+    "prettier": "^2.5.1",
+    "turbo": "^1.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "turbo run lint"
+    }
+  },
+  "packageManager": "yarn@1.22.17"
 }
