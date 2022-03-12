@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import logo from './logo.png';
 import './App.css';
@@ -13,21 +13,23 @@ const Contact = React.lazy(() => import("./components/Contant"));
 
 const App = () => {
   const [isToggled, setToggled] = useState(true);
+  const [isNavOpen, setNavOpen] = useState(false);
   const [cards, setCards] = useState(data);
 
   useEffect(() => {
       setCards(data);
   }, []);
 
-  const openNav = () => {
-    // @ts-ignore
-    document.getElementById("myNav").style.width = "100%";
-  };
+  useEffect(() => {
+    const nav = document.getElementById('myNav');
+    if (!nav) return;
 
-  const closeNav = () => {
-    // @ts-ignore
-    document.getElementById("myNav").style.width = "0%";
-  };
+    if (isNavOpen) {
+      nav.style.width = "100%";
+    } else {
+      nav.style.width = "0%";
+    }
+  }, [isNavOpen]);
 
   return (
     <div className="App">
@@ -37,11 +39,11 @@ const App = () => {
              alt="logo"
              onMouseEnter={() => setToggled(!isToggled)}
              onMouseLeave={() => setToggled(!isToggled)}
-             onClick={openNav} />
+             onClick={() => setNavOpen(true)} />
         <h1 className={isToggled ? 'menu-hidden' : 'menu animated bounceInDown'}
-            onClick={openNav}
+            onClick={() => setNavOpen(true)}
         >Menu</h1>
-        <Navigation closeNav={closeNav} />
+        <Navigation closeNav={() => setNavOpen(false)} />
       </header>
 
       <Routes>
