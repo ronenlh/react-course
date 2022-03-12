@@ -9,7 +9,7 @@ import Lost from './components/Lost';
 import data from './data/data.json';
 import Loading from './components/Loading';
 
-const Vitamin = React.lazy(() => import("./components/Vitamin"));
+const Contact = React.lazy(() => import("./components/Contant"));
 
 const App = () => {
   const [isToggled, setToggled] = useState(true);
@@ -53,11 +53,14 @@ const App = () => {
           <ProductList cards={cards.filter(({ type }) => type === 'clothing')} />}
         />
         <Route path="/vitamin" element={
+          <ProductList cards={cards.filter(({ type }) => type === 'vitamin')} />}
+        />
+        <Route path="/contact" element={
           <React.Suspense fallback={<Loading />}>
-            <ProductList cards={cards.filter(({ type }) => type === 'vitamin')} />
+            <Contact />
           </React.Suspense>} />
         <Route path="/product/:productId" element={<ProductDetails />} />
-        <Route element={<Lost />} />
+        <Route path="*" element={<Lost />} />
       </Routes>
     </div>
   );

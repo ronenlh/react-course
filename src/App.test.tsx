@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
-import Vitamin from './components/Vitamin';
+import Contant from './components/Contant';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -14,7 +14,7 @@ it('Vitamin renders successfully', () => {
   const div = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={[ '/vitamin']}>
-      <Vitamin />
+      <Contant />
     </MemoryRouter>
     , div);
   ReactDOM.unmountComponentAtNode(div);
