@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
 import logo from './logo.png';
 import './App.css';
 import ProductList from './components/ProductList';
 import Navigation from './components/Navigation';
-import ProductDetails from './components/ProductDetails';
-import Lost from './components/Lost';
 import data from './data/data.json';
-import Loading from './components/Loading';
-
-const Contact = React.lazy(() => import('./components/Contact'));
+import Contact from './components/Contact';
+import Route from './components/Route';
+import Routes from './components/Routes';
 
 const App = () => {
   const [isToggled, setToggled] = useState(true);
@@ -47,7 +44,6 @@ const App = () => {
       </header>
 
       <Routes>
-        <Route path="/" element={<ProductList cards={cards} />} />
         <Route path="/supplements" element={
           <ProductList cards={cards.filter(({ type }) => type === 'supplement')} />}
         />
@@ -57,12 +53,7 @@ const App = () => {
         <Route path="/vitamin" element={
           <ProductList cards={cards.filter(({ type }) => type === 'vitamin')} />}
         />
-        <Route path="/contact" element={
-          <React.Suspense fallback={<Loading />}>
-            <Contact />
-          </React.Suspense>} />
-        <Route path="/product/:productId" element={<ProductDetails />} />
-        <Route path="*" element={<Lost />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </div>
   );
