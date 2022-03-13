@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import logo from './logo.png';
 import './App.css';
@@ -9,7 +9,7 @@ import Lost from './components/Lost';
 import data from './data/data.json';
 import Loading from './components/Loading';
 
-const Contact = React.lazy(() => import("./components/Contant"));
+const Contact = React.lazy(() => import('./components/Contact'));
 
 const App = () => {
   const [isToggled, setToggled] = useState(true);

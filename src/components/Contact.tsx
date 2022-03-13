@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Contant = () => {
+const Contact = () => {
     return <h1>Ronen L.</h1>
 }
  
-export default Contant;
+export default Contact;
