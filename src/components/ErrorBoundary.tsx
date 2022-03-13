@@ -14,7 +14,7 @@ export default class ErrorBoundary extends Component<any, ErrorBoundaryState> {
 
     static getDerivedStateFromError(error: any) {
         // Update state so the next render will show the fallback UI.
-        console.debug({ error });
+        console.debug('getDerivedStateFromError', { error });
         return {
             hasError: true
         };
@@ -22,7 +22,7 @@ export default class ErrorBoundary extends Component<any, ErrorBoundaryState> {
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo ) {
         // You can also log the error to an error reporting service
-        console.error(error, errorInfo);
+        console.error('componentDidCatch', { error, errorInfo });
     }
 
     render() {

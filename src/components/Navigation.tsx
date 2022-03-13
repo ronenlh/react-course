@@ -15,6 +15,7 @@ const Navigation = (props: NavigationProps) => (
     <Link to="/clothing" onClick={() => props.closeNav()}>Clothing</Link>
     <Link to="/supplements" onClick={() => props.closeNav()}>Supplements</Link>
     <Link to="/contact" onClick={() => props.closeNav()}>Contact</Link>
+    <Link to="/error" onClick={() => props.closeNav()}>Error</Link>
     </div>
   </div>
 );

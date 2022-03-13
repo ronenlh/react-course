@@ -8,6 +8,8 @@ import ProductDetails from './components/ProductDetails';
 import Lost from './components/Lost';
 import data from './data/data.json';
 import Loading from './components/Loading';
+import ComponentWithError from './components/ComponentWithError';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const Contact = React.lazy(() => import('./components/Contact'));
 
@@ -56,6 +58,11 @@ const App = () => {
         />
         <Route path="/vitamin" element={
           <ProductList cards={cards.filter(({ type }) => type === 'vitamin')} />}
+        />
+        <Route path="/error" element={
+          <ErrorBoundary >
+            <ComponentWithError />
+          </ErrorBoundary>}
         />
         <Route path="/contact" element={
           <React.Suspense fallback={<Loading />}>
