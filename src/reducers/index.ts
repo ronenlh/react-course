@@ -1,18 +1,26 @@
 import { Reducer } from 'redux';
 
-interface Action {
+export interface CounterAction {
     type: string;
 }
 
-const reducer: Reducer<number, Action> = (state = 0, action) => {
+export interface CounterState {
+    counter: number;
+}
+
+const initialState: CounterState = {
+    counter: 0
+};
+
+const reducer: Reducer<CounterState, CounterAction> = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREMENT':
-            return state + 1;
+            return { counter: state.counter + 1};
         case 'DECREMENT':
-            return state -1;
+            return { counter: state.counter - 1};
         default:
             return state;
     }
-}
+};
 
 export default reducer;
