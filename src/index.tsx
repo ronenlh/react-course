@@ -1,15 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Counter from './components/Counter';
-import { createStore } from 'redux';
 import reducer from './reducers';
 
+const createStore = (reducer: any) => {
+    let state = reducer(undefined, {});
+    let listeners: (() => void)[] = [];
 
-const store = createStore(
-    reducer,
-    // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    );
+    const getState = () => state;
+
+    const dispatch = (action: any) => {
+        state = reducer(state, action);
+        listeners.forEach((listener) => listener());
+    };
+
+    const subscribe = (listener: () => void) => {
+        listeners.push(listener);
+        return () => {
+            listeners = listeners.filter(l => l !== listener);
+        };
+    };
+
+    return { getState, subscribe, dispatch };
+};
+
+const store = createStore(reducer);
 
 const root = document.getElementById('root');
 const render = () => ReactDOM.render(<Counter
