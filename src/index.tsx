@@ -2,9 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Counter from './components/Counter';
 import { createStore } from 'redux';
-import counter from './reducers';
+import reducer from './reducers';
 
-const store = createStore(counter);
+
+const store = createStore(
+    reducer,
+    // @ts-ignore
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
+
 const root = document.getElementById('root');
 const render = () => ReactDOM.render(<Counter
     value={store.getState()}
