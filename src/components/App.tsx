@@ -1,7 +1,7 @@
 import Counter from './Counter';
 import React, { Dispatch } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CounterAction, CounterState } from '../reducers';
+import { CounterAction, CounterState, decrement, increment } from '../store';
 
 const App: React.FC = () => {
     const count = useSelector<CounterState, number>((state) => state.counter);
@@ -9,8 +9,8 @@ const App: React.FC = () => {
 
     return (<Counter
         value={count}
-        onIncrement={() => dispatch({ type: 'INCREMENT' })}
-        onDecrement={() => dispatch({ type: 'DECREMENT' })}
+        onIncrement={() => dispatch(increment())}
+        onDecrement={() => dispatch(decrement())}
     />);
 };
 
