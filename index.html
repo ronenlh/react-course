@@ -8,13 +8,14 @@
     <title>Document</title>
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
 <body>
     <div id="root"></div>
 
-    <script>
-        var hello = React.createElement('h1', null, 'Hello React!');
-        var domContainer = document.querySelector('#root');
+    <script type="text/babel">
+        const hello = <h1>Hello JSX!</h1>;
+        const domContainer = document.querySelector('#root');
         ReactDOM.render(hello, domContainer);
     </script>
 </body>
