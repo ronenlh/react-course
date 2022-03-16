@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer } from 'react';
 
 interface HttpState {
   loading: boolean;
@@ -24,7 +24,7 @@ const initialState: HttpState = {
   identifier: null
 };
 
-const httpReducer: React.Reducer<HttpState, HttpAction> = (curHttpState, action) => {
+const httpReducer: React.Reducer<HttpState, HttpAction> = (currentState, action) => {
   switch (action.type) {
     case 'SEND':
       return {
@@ -36,7 +36,7 @@ const httpReducer: React.Reducer<HttpState, HttpAction> = (curHttpState, action)
       };
     case 'RESPONSE':
       return {
-        ...curHttpState,
+        ...currentState,
         loading: false,
         data: action.responseData,
         extra: action.extra
@@ -51,12 +51,12 @@ const httpReducer: React.Reducer<HttpState, HttpAction> = (curHttpState, action)
 };
 
 const useHttp = () => {
-  const [httpState, dispatchHttp] = useReducer(httpReducer, initialState);
+  const [state, dispatch] = useReducer(httpReducer, initialState);
 
-  const clear = useCallback(() => dispatchHttp({ type: 'CLEAR' }), []);
+  const clear = () => dispatch({ type: 'CLEAR' });
 
-  const sendRequest = useCallback((url, method, body?, reqExtra?, reqIdentifer?) => {
-      dispatchHttp({ type: 'SEND', identifier: reqIdentifer });
+  const sendRequest = (url: string, method: string, body?: any, reqExtra?: any, reqIdentifer?: any) => {
+      dispatch({ type: 'SEND', identifier: reqIdentifer });
       fetch(url, {
         method: method,
         body: body,
@@ -68,29 +68,27 @@ const useHttp = () => {
           return response.json();
         })
         .then(responseData => {
-          dispatchHttp({
+          dispatch({
             type: 'RESPONSE',
             responseData: responseData,
             extra: reqExtra
           });
         })
         .catch(error => {
-          dispatchHttp({
+          dispatch({
             type: 'ERROR',
             errorMessage: 'Something went wrong!'
           });
         });
-    },
-    []
-  );
+    };
 
   return {
-    isLoading: httpState.loading,
-    data: httpState.data,
-    error: httpState.error,
+    isLoading: state.loading,
+    data: state.data,
+    error: state.error,
     sendRequest,
-    reqExtra: httpState.extra,
-    reqIdentifer: httpState.identifier,
+    reqExtra: state.extra,
+    reqIdentifer: state.identifier,
     clear
   };
 };
