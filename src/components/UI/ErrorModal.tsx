@@ -6,7 +6,7 @@ export interface ErrorModalProps {
   onClose: () => void
 }
 
-const ErrorModal: React.FC<ErrorModalProps> = React.memo((props) => {
+const ErrorModal: React.FC<ErrorModalProps> = (props) => {
   return (
     <React.Fragment>
       <div className="backdrop" onClick={props.onClose} />
@@ -21,6 +21,6 @@ const ErrorModal: React.FC<ErrorModalProps> = React.memo((props) => {
       </div>
     </React.Fragment>
   );
-});
+};
 
 export default ErrorModal;

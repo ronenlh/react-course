@@ -10,15 +10,15 @@ interface SearchProps {
   onLoadIngredients: (igs: Ingredient[]) => void;
 }
 
-const Search: React.FC<SearchProps> = React.memo((props) => {
+const Search: React.FC<SearchProps> = (props) => {
   const { onLoadIngredients } = props;
   const [enteredFilter, setEnteredFilter] = useState('');
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef: HTMLInputElement = document.getElementById('search') as HTMLInputElement;
   const { isLoading, data, error, sendRequest, clear } = useHttp();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (enteredFilter === inputRef.current?.value) {
+      if (enteredFilter === inputRef?.value) {
         const query =
           enteredFilter.length === 0
             ? ''
@@ -56,15 +56,15 @@ const Search: React.FC<SearchProps> = React.memo((props) => {
           <label>Filter by Title</label>
           {isLoading && <span>Loading...</span>}
           <input
-            ref={inputRef}
-            type="text"
-            value={enteredFilter}
-            onChange={event => setEnteredFilter(event.target.value)}
+              id={"search"}
+              type="text"
+              value={enteredFilter}
+              onChange={event => setEnteredFilter(event.target.value)}
           />
         </div>
       </Card>
     </section>
   );
-});
+};
 
 export default Search;

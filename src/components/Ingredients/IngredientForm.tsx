@@ -10,7 +10,7 @@ interface IngredientFormProps {
   loading: boolean;
 }
 
-const IngredientForm: React.FC<IngredientFormProps> = React.memo((props) => {
+const IngredientForm: React.FC<IngredientFormProps> = (props) => {
   const [enteredTitle, setEnteredTitle] = useState('');
   const [enteredAmount, setEnteredAmount] = useState('');
   console.log('RENDERING INGREDIENT FORM');
@@ -54,6 +54,6 @@ const IngredientForm: React.FC<IngredientFormProps> = React.memo((props) => {
       </Card>
     </section>
   );
-});
+};
 
 export default IngredientForm;
