@@ -8,6 +8,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+    <div id="root"></div>
+
+    <script>
+        var h1 = document.createElement('h1');
+        h1.textContent = 'Hello js';
+        var domContainer = document.querySelector('#root');
+        domContainer.appendChild(h1);
+    </script>
 </body>
 </html>
