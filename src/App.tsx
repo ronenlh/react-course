@@ -7,11 +7,8 @@ import Navigation from './components/Navigation';
 import ProductDetails from './components/ProductDetails';
 import Lost from './components/Lost';
 import data from './data/data.json';
-import Loading from './components/Loading';
 import ComponentWithError from './components/ComponentWithError';
-import ErrorBoundary from './components/ErrorBoundary';
-
-const Contact = React.lazy(() => import('./components/Contact'));
+import Contact from './components/Contact';
 
 const App = () => {
   const [isToggled, setToggled] = useState(true);
@@ -59,15 +56,8 @@ const App = () => {
         <Route path="/vitamin" element={
           <ProductList cards={cards.filter(({ type }) => type === 'vitamin')} />}
         />
-        <Route path="/error" element={
-          <ErrorBoundary >
-            <ComponentWithError />
-          </ErrorBoundary>}
-        />
-        <Route path="/contact" element={
-          <React.Suspense fallback={<Loading />}>
-            <Contact />
-          </React.Suspense>} />
+        <Route path="/error" element={<ComponentWithError />} />
+        <Route path="/contact" element={<Contact /> } />
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="*" element={<Lost />} />
       </Routes>
