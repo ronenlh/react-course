@@ -38,7 +38,15 @@ html, body {
   visibility: hidden;
 }
 
-.App-header {
+.App {
+  background-color: aliceblue;
+}
+
+.DarkApp {
+  background-color: darkblue;
+}
+
+#App-header {
   height: 150px;
   padding: 20px;
   color: white;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, useCallback, useMemo, useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import logo from './logo.png';
 import './App.css';
@@ -7,48 +7,56 @@ import Navigation from './components/Navigation';
 import ProductDetails from './components/ProductDetails';
 import Lost from './components/Lost';
 import data from './data/data.json';
-import ComponentWithError from './components/ComponentWithError';
 import Contact from './components/Contact';
+import MyErrorBoundary from './components/MyErrorBoundary';
+import { ThemeContext } from '.';
 
-const App = () => {
+const App = React.memo(() => {
+  const CompletelyNormalComponent = React.lazy(() => import('./components/CompletelyNormalComponent'));
+
   const [isToggled, setToggled] = useState(true);
-  const [isNavOpen, setNavOpen] = useState(false);
   const [cards, setCards] = useState(data);
+  const theme = useContext(ThemeContext);
 
   useEffect(() => {
+      // get data
+      // const data = fetch('https:.../data')
+      
       setCards(data);
   }, []);
 
-  useEffect(() => {
-    const nav = document.getElementById('myNav');
-    if (!nav) return;
-
-    if (isNavOpen) {
-      nav.style.width = "100%";
-    } else {
-      nav.style.width = "0%";
-    }
-  }, [isNavOpen]);
-
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className={ theme === 'light' ? "App" : "DarkApp"}>
+      <header id="App-header">
         <img src={logo}
              className={isToggled ? 'static-logo' : 'static-logo animated jello'}
              alt="logo"
-             onMouseEnter={() => setToggled(!isToggled)}
+             onMouseEnter={useCallback(() => setToggled(!isToggled), [isToggled])}
              onMouseLeave={() => setToggled(!isToggled)}
-             onClick={() => setNavOpen(true)} />
+             onClick={() => {
+              const nav = document.getElementById('myNav');
+              if (nav) {
+                nav.style.width = "100%";
+              }}} />
         <h1 className={isToggled ? 'menu-hidden' : 'menu animated bounceInDown'}
-            onClick={() => setNavOpen(true)}
+            onClick={() => {
+              const nav = document.getElementById('myNav');
+              if (nav) {
+                nav.style.width = "100%";
+              }}}
         >Menu</h1>
-        <Navigation closeNav={() => setNavOpen(false)} />
+        <Navigation closeNav={() => {
+          const nav = document.getElementById('myNav');
+          if (nav) {
+            nav.style.width = "0%";
+          }
+          }} />
       </header>
 
       <Routes>
         <Route path="/" element={<ProductList cards={cards} />} />
         <Route path="/supplements" element={
-          <ProductList cards={cards.filter(({ type }) => type === 'supplement')} />}
+          <ProductList cards={useMemo(() => cards.filter(({ type }) => type === 'supplement'), [cards])} />}
         />
         <Route path="/clothing" element={
           <ProductList cards={cards.filter(({ type }) => type === 'clothing')} />}
@@ -56,13 +64,19 @@ const App = () => {
         <Route path="/vitamin" element={
           <ProductList cards={cards.filter(({ type }) => type === 'vitamin')} />}
         />
-        <Route path="/error" element={<ComponentWithError />} />
+        <Route path="/foo" element={
+          <MyErrorBoundary fallback={<h1>Error...😓</h1>}>
+            <Suspense fallback={<h1>Loading...⏱😓</h1>}>
+              <CompletelyNormalComponent />
+            </Suspense>
+          </MyErrorBoundary>
+        } />
         <Route path="/contact" element={<Contact /> } />
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="*" element={<Lost />} />
       </Routes>
     </div>
   );
-};
+});
 
 export default App;
