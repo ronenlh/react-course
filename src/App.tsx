@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
-import logo from "./logo.svg";
+import React, { createRef } from "react";
 import "./App.css";
 
 const App = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = createRef<HTMLInputElement>();
 
   return (
     <form
