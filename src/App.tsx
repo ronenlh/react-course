@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
 const App = () => {
-  const [name, setName] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <form
       onSubmit={(event) => {
-        alert("A name was submitted: " + name);
+        alert("A name was submitted: " + inputRef.current?.value);
         event.preventDefault();
       }}
     >
@@ -17,8 +17,7 @@ const App = () => {
         <input
           type="text"
           name="name"
-          value={name}
-          onChange={(event) => setName(event.target?.value)}
+          ref={inputRef}
         />
       </label>
       <input type="submit" value="Submit" />
