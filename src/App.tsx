@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import styles from "./App.module.css";
+
+export const sum = (a: number, b: number) => {
+  return a + b;
+};
+
+export const foo = (str: string) => {
+  return {
+    name: str
+  };
+};
 
 const App = () => {
   const [name, setName] = useState("");
 
   return (
-    <div className="contact-us">
+    <div className={styles.contactUs}>
       <form
         onSubmit={(event) => {
           alert("A name was submitted: " + name);
@@ -22,7 +31,7 @@ const App = () => {
             onChange={(event) => setName(event.target?.value)}
           />
         </label>
-        <input className="submit" type="submit" value="Submit" />
+        <input className={styles.submit} type="submit" value="Submit" />
       </form>
     </div>
   );
