@@ -6,23 +6,25 @@ const App = () => {
   const [name, setName] = useState("");
 
   return (
-    <form
-      onSubmit={(event) => {
-        alert("A name was submitted: " + name);
-        event.preventDefault();
-      }}
-    >
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={(event) => setName(event.target?.value)}
-        />
-      </label>
-      <input type="submit" value="Submit" />
-    </form>
+    <div className="contact-us">
+      <form
+        onSubmit={(event) => {
+          alert("A name was submitted: " + name);
+          event.preventDefault();
+        }}
+      >
+        <label>
+          NAME: <em>*</em>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={(event) => setName(event.target?.value)}
+          />
+        </label>
+        <input className="submit" type="submit" value="Submit" />
+      </form>
+    </div>
   );
 };
 
