@@ -32,7 +32,7 @@ describe('learning tests', () => {
     expect(result).toBe(3)
   });
 
-  it('tests 1+2', () => {
+  it('tests snap', () => {
     // given
     // when
     const result = foo("hello world");
