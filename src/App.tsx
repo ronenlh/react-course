@@ -7,7 +7,7 @@ export const sum = (a: number, b: number) => {
 
 export const foo = (str: string) => {
   return {
-    name: str
+    name: str.toUpperCase() + '!'
   };
 };
 
