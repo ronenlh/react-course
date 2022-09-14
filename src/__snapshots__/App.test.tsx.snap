@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`learning tests tests snap 1`] = `
-Object {
-  "name": "HELLO WORLD!",
-}
-`;

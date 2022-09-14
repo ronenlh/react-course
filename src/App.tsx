@@ -1,40 +1,48 @@
-import React, { useState } from "react";
-import styles from "./App.module.css";
+import React from "react";
+import "./App.css";
 
-export const sum = (a: number, b: number) => {
-  return a + b;
-};
 
-export const foo = (str: string) => {
-  return {
-    name: str.toUpperCase() + '!'
-  };
-};
+interface ClockState {
+  date: Date;
+}
 
-const App = () => {
-  const [name, setName] = useState("");
+class Clock extends React.Component<any, ClockState> {
 
-  return (
-    <div className={styles.contactUs}>
-      <form
-        onSubmit={(event) => {
-          alert("A name was submitted: " + name);
-          event.preventDefault();
-        }}
-      >
-        <label>
-          NAME: <em>*</em>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={(event) => setName(event.target?.value)}
-          />
-        </label>
-        <input className={styles.submit} type="submit" value="Submit" />
-      </form>
-    </div>
-  );
-};
+  private timerID?: number;
 
-export default App;
+  constructor(props: any) {
+    super(props);
+    this.state = { date: new Date() };
+    this.showAlert = this.showAlert.bind(this);
+  }
+
+  componentDidMount() {
+    this.timerID = window.setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date(),
+    });
+  }
+
+  showAlert() {
+    alert(`It is ${this.state.date.toLocaleTimeString()}.`);
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <button className="button-53" onClick={this.showAlert}>
+          Click me!
+        </button>
+      </div>
+    );
+  }
+}
+
+export default Clock;
