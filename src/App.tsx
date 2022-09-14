@@ -13,7 +13,6 @@ class Clock extends React.Component<any, ClockState> {
   constructor(props: any) {
     super(props);
     this.state = { date: new Date() };
-    this.showAlert = this.showAlert.bind(this);
   }
 
   componentDidMount() {
@@ -30,16 +29,10 @@ class Clock extends React.Component<any, ClockState> {
     });
   }
 
-  showAlert() {
-    alert(`It is ${this.state.date.toLocaleTimeString()}.`);
-  }
-
   render() {
     return (
       <div className="container">
-        <button className="button-53" onClick={this.showAlert}>
-          Click me!
-        </button>
+        It is {this.state.date.toLocaleTimeString()}
       </div>
     );
   }
