@@ -1,48 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
+const Clock = () => {
+  const [date, setDate] = useState(new Date());
+  const [timerID, setTimerID] = useState<number>();
 
-interface ClockState {
-  date: Date;
-}
+  useEffect(() => {
+    setTimerID(window.setInterval(() => setDate(new Date()), 1_000));
 
-class Clock extends React.Component<any, ClockState> {
+    return () => window.clearInterval(timerID);
+  }, [timerID]);
 
-  private timerID?: number;
-
-  constructor(props: any) {
-    super(props);
-    this.state = { date: new Date() };
-    this.showAlert = this.showAlert.bind(this);
-  }
-
-  componentDidMount() {
-    this.timerID = window.setInterval(() => this.tick(), 1000);
-  }
-
-  componentWillUnmount() {
-    window.clearInterval(this.timerID);
-  }
-
-  tick() {
-    this.setState({
-      date: new Date(),
-    });
-  }
-
-  showAlert() {
-    alert(`It is ${this.state.date.toLocaleTimeString()}.`);
-  }
-
-  render() {
     return (
-      <div className="container">
-        <button className="button-53" onClick={this.showAlert}>
-          Click me!
-        </button>
+      <div>
+        <h1>
+        {date.toLocaleTimeString()}
+        </h1>
       </div>
     );
-  }
 }
 
 export default Clock;
