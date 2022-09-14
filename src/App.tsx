@@ -3,21 +3,19 @@ import "./App.css";
 
 const Clock = () => {
   const [date, setDate] = useState(new Date());
-  const [timerID, setTimerID] = useState<number>();
 
   useEffect(() => {
-    setTimerID(window.setInterval(() => setDate(new Date()), 1_000));
+    const id = window.setInterval(() => setDate(new Date()), 1_000);
+    return () => window.clearInterval(id);
+  }, []);
 
-    return () => window.clearInterval(timerID);
-  }, [timerID]);
-
-    return (
-      <div>
-        <h1>
+  return (
+    <div>
+      <h1>
         {date.toLocaleTimeString()}
-        </h1>
-      </div>
-    );
-}
+      </h1>
+    </div>
+  );
+};
 
 export default Clock;
