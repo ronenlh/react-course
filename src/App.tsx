@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import "./App.css";
 
 const Clock = () => {
+  const [isPending, startTransition] = useTransition();
   const [date, setDate] = useState(new Date());
-  const [timerID, setTimerID] = useState<number>();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setTimerID(window.setInterval(() => setDate(new Date()), 1_000));
+    const id = window.setInterval(() => setDate(new Date()), 1_000);
+    return () => window.clearInterval(id);
+  }, []);
 
-    return () => window.clearInterval(timerID);
-  }, [timerID]);
-
-    return (
-      <div>
-        <h1>
+  return (
+    <div>
+      <h1>
+        <button
+          onClick={() => {
+            startTransition(() => {
+              setCount((previousCount) => previousCount + 1);
+            });
+          }}
+        >
+          Count: {count}
+        </button>
         {date.toLocaleTimeString()}
-        </h1>
-      </div>
-    );
-}
+      </h1>
+      {isPending && <h2>waiting...</h2>}
+    </div>
+  );
+};
 
 export default Clock;
