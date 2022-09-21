@@ -1,11 +1,11 @@
 import Counter from './Counter';
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CounterAction, CounterState } from '../reducers';
+import { CounterState } from '../reducers';
 
 const App: React.FC = () => {
     const count = useSelector<CounterState, number>((state) => state.counter);
-    const dispatch = useDispatch<Dispatch<CounterAction>>()
+    const dispatch = useDispatch()
 
     return (<Counter
         value={count}
