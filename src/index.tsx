@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom/client';
 import Counter from './components/Counter';
 import { createStore } from 'redux';
 import reducer from './reducers';
-
+import { composeWithDevTools } from '@redux-devtools/extension';
 
 const store = createStore(
     reducer,
-    // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools()
     );
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
