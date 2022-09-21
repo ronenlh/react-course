@@ -1,4 +1,4 @@
-import { createSlice, configureStore, Draft } from '@reduxjs/toolkit'
+import { createSlice, configureStore } from '@reduxjs/toolkit'
 
 export interface CounterAction {
     type: string;
